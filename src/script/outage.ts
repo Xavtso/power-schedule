@@ -3,6 +3,17 @@
 
 import { chromium } from "playwright";
 import * as cheerio from "cheerio";
+import { fileURLToPath } from "url";
+
+export type OutageInterval = { start: string; end: string };
+export type OutageGroup = { group: string; outages: OutageInterval[]; raw: string };
+export type OutageData = {
+  scheduleDate: string;
+  infoAsOf?: string;
+  groups: OutageGroup[];
+  source: { url: string; imageUrl?: string };
+  rawLines: string[];
+};
 
 function uaDateToIso(dateUA: string) {
   const m = dateUA.trim().match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
@@ -13,13 +24,13 @@ function uaDateToIso(dateUA: string) {
 
 function extractOutageIntervals(text: string) {
   const re = /з\s+(\d{2}:\d{2})\s+до\s+(\d{2}:\d{2})/g;
-  const outages: Array<{ start: string; end: string }> = [];
+  const outages: OutageInterval[] = [];
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) outages.push({ start: m[1], end: m[2] });
   return outages;
 }
 
-function parsePowerOffFromRenderedHtml(renderedHtml: string) {
+export function parsePowerOffFromRenderedHtml(renderedHtml: string): OutageData {
   const $ = cheerio.load(renderedHtml);
 
   const ps = $(".power-off__text p")
@@ -35,11 +46,7 @@ function parsePowerOffFromRenderedHtml(renderedHtml: string) {
   let scheduleDate = "";
   let infoAsOf: string | undefined;
 
-  const groups: Array<{
-    group: string;
-    outages: Array<{ start: string; end: string }>;
-    raw: string;
-  }> = [];
+  const groups: OutageGroup[] = [];
 
   for (const line of ps) {
     const dateMatch = line.match(/Графік погодинних відключень на\s+(\d{2}\.\d{2}\.\d{4})/i);
@@ -80,7 +87,7 @@ function parsePowerOffFromRenderedHtml(renderedHtml: string) {
   };
 }
 
-async function fetchRenderedHtml(url: string) {
+export async function fetchRenderedHtml(url: string) {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({
     userAgent:
@@ -104,14 +111,21 @@ async function fetchRenderedHtml(url: string) {
   return html;
 }
 
-async function main() {
+export async function fetchOutageData() {
   const url = "https://poweron.loe.lviv.ua/";
   const renderedHtml = await fetchRenderedHtml(url);
-  const data = parsePowerOffFromRenderedHtml(renderedHtml);
+  return parsePowerOffFromRenderedHtml(renderedHtml);
+}
+
+async function main() {
+  const data = await fetchOutageData();
   console.log(JSON.stringify(data, null, 2));
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+const isDirectRun = process.argv[1] === fileURLToPath(import.meta.url);
+if (isDirectRun) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}
