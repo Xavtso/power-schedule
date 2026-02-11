@@ -42,30 +42,6 @@ export default function Home() {
           <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Графік погодинних відключень
           </h1>
-          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
-            <button
-              type="button"
-              className="rounded-full border border-zinc-200 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-zinc-600 hover:border-zinc-300 hover:text-zinc-900"
-              onClick={async () => {
-                const res = await fetch("/api/cron/outage?mock=before");
-                const payload = await res.json();
-                console.log("[mock before]", payload);
-              }}
-            >
-              Mock Before
-            </button>
-            <button
-              type="button"
-              className="rounded-full border border-zinc-200 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-zinc-600 hover:border-zinc-300 hover:text-zinc-900"
-              onClick={async () => {
-                const res = await fetch("/api/cron/outage?mock=after");
-                const payload = await res.json();
-                console.log("[mock after]", payload);
-              }}
-            >
-              Mock After
-            </button>
-          </div>
           <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-600">
             <span>
               Дата:{" "}

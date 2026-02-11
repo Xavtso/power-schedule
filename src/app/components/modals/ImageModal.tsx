@@ -1,5 +1,7 @@
 "use client";
 
+import { Image as ImageIcon } from "lucide-react";
+
 type ImageModalProps = {
   imageUrl: string;
   onClose: () => void;
@@ -13,7 +15,8 @@ export function ImageModal({ imageUrl, onClose }: ImageModalProps) {
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-zinc-200 px-5 py-3">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
+          <p className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-zinc-500">
+            <ImageIcon className="h-4 w-4" />
             Офіційне зображення графіка
           </p>
           <button type="button" className="text-zinc-400 hover:text-zinc-700" onClick={onClose}>

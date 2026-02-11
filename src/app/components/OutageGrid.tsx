@@ -2,6 +2,7 @@
 
 import type { GroupTotals, OutageData, OutageGroup } from "@/app/types/outage";
 import { ui } from "@/app/ui/styles";
+import { Image, Link2, ListChecks, MailPlus, Power } from "lucide-react";
 import {
   cellFillStyle,
   cellStatusLabel,
@@ -57,14 +58,16 @@ export function OutageGrid({
             className={ui.classes.pillButton}
             onClick={onOpenSummary}
           >
-            Summary
+            <ListChecks className="h-3.5 w-3.5" />
+            <span>Summary</span>
           </button>
           <button
             type="button"
             className={ui.classes.pillButton}
             onClick={onOpenSubscribe}
           >
-            Підписка
+            <MailPlus className="h-3.5 w-3.5" />
+            <span>Підписка</span>
           </button>
           {data.source.imageUrl ? (
             <button
@@ -72,7 +75,8 @@ export function OutageGrid({
               className={ui.classes.pillButton}
               onClick={onOpenImage}
             >
-              Зображення
+              <Image className="h-3.5 w-3.5" />
+              <span>Зображення</span>
             </button>
           ) : null}
           <a
@@ -81,27 +85,30 @@ export function OutageGrid({
             rel="noreferrer"
             className={ui.classes.pillButton}
           >
-            Джерело
+            <Link2 className="h-3.5 w-3.5" />
+            <span>Джерело</span>
           </a>
         </div>
       </div>
       <div className={ui.classes.legendRow}>
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-2">
-            <span
-              className="h-3 w-3 rounded-sm"
-              style={{ background: ui.colors.powerOn }}
-            />
-            Є електроенергія
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span
+                className="h-3 w-3 rounded-sm"
+                style={{ background: ui.colors.powerOn }}
+              />
+              <Power className="h-3.5 w-3.5 text-emerald-600" />
+              Є електроенергія
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="h-3 w-3 rounded-sm"
+                style={{ background: ui.colors.powerOff }}
+              />
+              <Power className="h-3.5 w-3.5 text-rose-500" />
+              Відключення
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span
-              className="h-3 w-3 rounded-sm"
-              style={{ background: ui.colors.powerOff }}
-            />
-            Відключення
-          </div>
-        </div>
       </div>
       <div className={ui.classes.filtersRow}>
         <div className={ui.classes.filtersWrap}>
@@ -164,15 +171,6 @@ export function OutageGrid({
         </div>
       </div>
       <div ref={scrollRef} className={ui.classes.gridWrapper}>
-        {showNow && nowOffset !== null ? (
-          <div className={ui.classes.nowLineWrap} style={{ top: nowOffset }}>
-            <div className={ui.classes.nowLineRow}>
-              <span className={ui.classes.nowDot} />
-              <span className={ui.classes.nowLabel}>Зараз {nowLabel}</span>
-              <div className={ui.classes.nowRule} />
-            </div>
-          </div>
-        ) : null}
         <table className={ui.classes.table}>
           <thead className={ui.classes.thead}>
             <tr>

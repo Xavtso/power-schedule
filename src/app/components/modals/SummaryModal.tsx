@@ -1,6 +1,7 @@
 "use client";
 
 import type { GroupTotals } from "@/app/types/outage";
+import { ListChecks } from "lucide-react";
 
 type SummaryModalProps = {
   groupTotals: GroupTotals[];
@@ -29,6 +30,10 @@ export function SummaryModal({
           <button type="button" className="text-zinc-400 hover:text-zinc-700" onClick={onClose}>
             Закрити
           </button>
+        </div>
+        <div className="mt-2 inline-flex items-center gap-2 text-xs text-zinc-500">
+          <ListChecks className="h-4 w-4" />
+          Підсумок по групах
         </div>
         {leastLightGroup ? (
           <div className="mt-4 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-[10px] uppercase tracking-[0.2em] text-rose-700">

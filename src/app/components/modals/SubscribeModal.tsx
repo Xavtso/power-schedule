@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { OutageGroup } from "@/app/types/outage";
 import { ui } from "@/app/ui/styles";
+import { Mail } from "lucide-react";
 
 type SubscribeModalProps = {
   groups: OutageGroup[];
@@ -100,6 +101,10 @@ export function SubscribeModal({
             onChange={(event) => setEmail(event.target.value)}
             className="mt-2 w-full rounded-lg border border-zinc-200 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-zinc-400"
           />
+        </div>
+        <div className="mt-2 flex items-center gap-2 text-[11px] text-zinc-500">
+          <Mail className="h-4 w-4" />
+          Отримуватимеш сповіщення на пошту.
         </div>
 
         {error ? (

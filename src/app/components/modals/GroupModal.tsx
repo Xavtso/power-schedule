@@ -1,6 +1,7 @@
 "use client";
 
 import type { GroupTotals } from "@/app/types/outage";
+import { Power } from "lucide-react";
 
 type GroupModalProps = {
   group: GroupTotals;
@@ -26,11 +27,17 @@ export function GroupModal({ group, leastLightGroup, onClose }: GroupModalProps)
         </div>
         <div className="mt-4 space-y-2 text-sm text-zinc-700">
           <div className="flex items-center justify-between">
-            <span>Без світла</span>
+            <span className="flex items-center gap-2">
+              <Power className="h-4 w-4 text-rose-500" />
+              Без світла
+            </span>
             <span className="font-semibold">{group.without.toFixed(1)} год</span>
           </div>
           <div className="flex items-center justify-between">
-            <span>Зі світлом</span>
+            <span className="flex items-center gap-2">
+              <Power className="h-4 w-4 text-emerald-600" />
+              Зі світлом
+            </span>
             <span className="font-semibold">{group.withPower.toFixed(1)} год</span>
           </div>
         </div>

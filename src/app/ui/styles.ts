@@ -21,7 +21,7 @@ export const ui = {
       "flex flex-col items-start justify-between gap-3 border-b border-zinc-200 px-4 py-4 sm:flex-row sm:items-center sm:px-6",
     headerActions: "flex flex-wrap items-center gap-2 text-xs",
     pillButton:
-      "rounded-full border border-zinc-200 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-zinc-600 hover:border-zinc-300 hover:text-zinc-900",
+      "inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-zinc-600 hover:border-zinc-300 hover:text-zinc-900",
     legendRow:
       "flex flex-wrap items-center justify-between gap-3 px-4 py-3 text-xs text-zinc-500",
     filtersRow: "border-y border-zinc-200 px-4 py-3",

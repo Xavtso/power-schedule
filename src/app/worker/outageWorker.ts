@@ -10,7 +10,7 @@ export type WorkerResult = {
   changedGroups: string[];
 };
 
-export async function runOutageWorkerWithData(next: OutageData): Promise<WorkerResult> {
+async function runOutageWorkerWithData(next: OutageData): Promise<WorkerResult> {
   const prev = getLastSnapshot();
   const { changed } = diffOutageData(prev, next);
 
