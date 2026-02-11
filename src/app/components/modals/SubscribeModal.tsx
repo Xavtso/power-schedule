@@ -24,6 +24,7 @@ export function SubscribeModal({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [info, setInfo] = useState<string | null>(null);
+  const [action, setAction] = useState<"subscribe" | "unsubscribe" | null>(null);
 
   const allSelected = groupIds.length === groups.length;
 
@@ -113,9 +114,14 @@ export function SubscribeModal({
           </div>
         ) : null}
 
-        {success ? (
+        {success && action === "subscribe" ? (
           <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
             Підписку збережено.
+          </div>
+        ) : null}
+        {success && action === "unsubscribe" ? (
+          <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
+            Відписку виконано.
           </div>
         ) : null}
         {info ? (
@@ -141,6 +147,7 @@ export function SubscribeModal({
               setError(null);
               setSuccess(false);
               setInfo(null);
+              setAction("subscribe");
               try {
                 const res = await fetch("/api/subscriptions", {
                   method: "POST",
@@ -174,6 +181,7 @@ export function SubscribeModal({
               setError(null);
               setSuccess(false);
               setInfo(null);
+              setAction("unsubscribe");
               try {
                 const res = await fetch("/api/subscriptions", {
                   method: "DELETE",

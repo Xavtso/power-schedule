@@ -29,4 +29,4 @@ jobs:
           MONGODB_URI: ${{ vars.MONGODB_URI }}
           GMAIL_USER: ${{ vars.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ vars.GMAIL_APP_PASSWORD }}
-        run: npx tsx scripts/update-outage.ts
+        run: timeout 10m npx tsx scripts/update-outage.ts || true
