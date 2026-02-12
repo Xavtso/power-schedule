@@ -22,6 +22,8 @@ async function runOutageWorkerWithData(next: OutageData): Promise<WorkerResult> 
       recipients: subscribers.map((s) => s.email),
       before: change.before,
       after: change.after,
+      prevScheduleDate: prev?.scheduleDate,
+      nextScheduleDate: next.scheduleDate,
     });
   }
 

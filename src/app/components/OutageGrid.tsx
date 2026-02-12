@@ -2,7 +2,7 @@
 
 import type { GroupTotals, OutageData, OutageGroup } from "@/app/types/outage";
 import { ui } from "@/app/ui/styles";
-import { Image, Link2, ListChecks, MailPlus, Power } from "lucide-react";
+import { Clock, Image, Link2, ListChecks, MailPlus, Power } from "lucide-react";
 import {
   cellFillStyle,
   cellStatusLabel,
@@ -175,7 +175,9 @@ export function OutageGrid({
           <thead className={ui.classes.thead}>
             <tr>
               <th className={`${ui.classes.headTimeCell} ${ui.sizes.timeColW}`}>
-                Година
+                <span className="inline-flex items-center justify-center">
+                  <Clock className="h-4 w-4 text-zinc-500" aria-label="Година" />
+                </span>
               </th>
               {visibleGroups.map((group) => (
                 <th key={group.group} className={ui.classes.headCell}>

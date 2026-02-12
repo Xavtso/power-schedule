@@ -133,15 +133,37 @@ export function SubscribeModal({
         <div className="mt-4 flex items-center justify-end gap-2">
           <button
             type="button"
-            className="rounded-full border border-zinc-200 px-4 py-2 text-xs uppercase tracking-[0.2em] text-zinc-600 hover:border-zinc-300"
-            onClick={onClose}
+            className="rounded-full border border-rose-600 bg-rose-600 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white hover:border-rose-700 hover:bg-rose-700"
+            onClick={async () => {
+              setSubmitting(true);
+              setError(null);
+              setSuccess(false);
+              setInfo(null);
+              setAction("unsubscribe");
+              try {
+                const res = await fetch("/api/subscriptions", {
+                  method: "DELETE",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ email, groups: groupIds }),
+                });
+                const payload = await res.json();
+                if (!res.ok) {
+                  throw new Error(payload?.error || "Failed to unsubscribe.");
+                }
+                setInfo(`Відписано: ${payload?.removedCount ?? 0}`);
+              } catch (err) {
+                setError(err instanceof Error ? err.message : "Unknown error");
+              } finally {
+                setSubmitting(false);
+              }
+            }}
             disabled={submitting}
           >
-            Скасувати
+            Відписатися
           </button>
           <button
             type="button"
-            className="rounded-full border border-zinc-900 bg-zinc-900 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white hover:bg-zinc-800"
+            className="rounded-full border border-emerald-600 bg-emerald-600 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white hover:border-emerald-700 hover:bg-emerald-700"
             onClick={async () => {
               setSubmitting(true);
               setError(null);
@@ -172,36 +194,6 @@ export function SubscribeModal({
             disabled={submitting}
           >
             Підписатися
-          </button>
-          <button
-            type="button"
-            className="rounded-full border border-zinc-200 px-4 py-2 text-xs uppercase tracking-[0.2em] text-zinc-600 hover:border-zinc-300"
-            onClick={async () => {
-              setSubmitting(true);
-              setError(null);
-              setSuccess(false);
-              setInfo(null);
-              setAction("unsubscribe");
-              try {
-                const res = await fetch("/api/subscriptions", {
-                  method: "DELETE",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ email, groups: groupIds }),
-                });
-                const payload = await res.json();
-                if (!res.ok) {
-                  throw new Error(payload?.error || "Failed to unsubscribe.");
-                }
-                setInfo(`Відписано: ${payload?.removedCount ?? 0}`);
-              } catch (err) {
-                setError(err instanceof Error ? err.message : "Unknown error");
-              } finally {
-                setSubmitting(false);
-              }
-            }}
-            disabled={submitting}
-          >
-            Відписатися
           </button>
         </div>
       </div>

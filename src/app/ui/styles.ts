@@ -9,9 +9,9 @@ export const ui = {
     hoverRing: "rgba(24,24,27,0.35)",
   },
   sizes: {
-    cellW: "w-7 sm:w-8",
-    cellH: "h-9 sm:h-10",
-    timeColW: "w-12 sm:w-16",
+    cellW: "w-6 sm:w-8",
+    cellH: "h-8 sm:h-10",
+    timeColW: "w-[45px] sm:w-16",
   },
   classes: {
     page: "min-h-screen bg-zinc-50 text-zinc-900",
@@ -38,13 +38,14 @@ export const ui = {
     gridWrapper:
       "relative max-h-[60vh] overflow-auto border-t border-zinc-200 sm:max-h-[70vh]",
     table:
-      "w-full min-w-[520px] border-collapse text-left text-[10px] sm:text-[11px]",
-    thead: "bg-zinc-50 text-[11px] uppercase tracking-wider text-zinc-500",
+      "w-full min-w-max border-collapse text-left text-[10px] sm:text-[11px] table-fixed",
+    thead:
+      "sticky top-0 z-20 bg-zinc-50 text-[11px] uppercase tracking-wider text-zinc-500",
     timeCell:
       "sticky left-0 z-10 border border-zinc-200 bg-white px-2 py-2 text-[11px] font-semibold text-zinc-700",
     headTimeCell:
-      "sticky left-0 z-10 border border-zinc-200 bg-zinc-50 px-2 py-2 font-medium",
-    headCell: "border border-zinc-200 px-2 py-2 font-medium",
+      "sticky left-0 z-30 border border-zinc-200 bg-zinc-50 px-2 py-2 text-center font-medium",
+    headCell: "border border-zinc-200 bg-zinc-50 px-2 py-2 font-medium",
     cell: "p-0 border border-zinc-200",
     cellFill: "relative h-full w-full",
     cellHover: "transition-shadow hover:shadow-[0_0_0_1px_rgba(24,24,27,0.35)]",
